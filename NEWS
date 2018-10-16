@@ -1,0 +1,22 @@
+*****************************************
+*				  	*
+*	Changes in logNormReg	*
+*				  	*
+*****************************************
+
+
+
+=============
+version 0.2-0  
+=============
+* Method confint.lognlm introduced to compute confidence intervals via the Wald the Likelihood Ratio or the Gradient statistics.
+* bug fixed: the offset term was not handled correctly in lognlm()
+
+
+=============
+version 0.1-0 (not on CRAN)  
+=============
+* First public release on ResearchGate with functions:
+lognlm, lognlm.fit, logLik.lognlm, print.lognlm, print.summary.lognlm, summary.lognlm, vcov.lognlm
+
+

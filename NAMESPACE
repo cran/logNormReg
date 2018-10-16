@@ -1,0 +1,18 @@
+importFrom("stats", ".getXlevels", "contrasts", "is.empty.model",
+             "model.matrix", "model.response", "model.weights", "model.offset",
+	     "terms", "printCoefmat", "qnorm", "splinefun")
+importFrom("stats", "coef", "dlnorm", "fitted", "mad", "median",
+             "nlminb", "optim", "pt", "vcov")
+
+export(logLik.lognlm, lognlm.fit, lognlm, print.lognlm, print.summary.lognlm, summary.lognlm, 
+	vcov.lognlm, confint.lognlm)
+
+S3method(logLik,lognlm)
+S3method(print,lognlm)
+S3method(summary,lognlm)
+S3method(print,summary.lognlm)
+S3method(vcov,lognlm)
+S3method(confint,lognlm)
+
+
+
