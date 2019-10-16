@@ -1,6 +1,6 @@
 lognlm <-
 function(formula, data, subset, weights, na.action, y = TRUE, 
-          start, model=TRUE, lik=TRUE, opt=c("nlminb","optim"), ...) {#method=c("BFGS", "Nelder-Mead")
+          start, model=TRUE, lik=TRUE, opt=c("nlminb","optim"), contrasts=NULL, ...) {#method=c("BFGS", "Nelder-Mead")
 #...: additional arguments to be passed to optim or nlmnib depending on 'opt', most often a control argument.
     opt<-match.arg(opt)
     call <- match.call()

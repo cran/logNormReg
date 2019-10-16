@@ -1,5 +1,6 @@
 \name{logLik.lognlm}
 \alias{logLik.lognlm}
+\alias{extractAIC.lognlm}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Log Likelihood for log Normal linear regression
@@ -9,15 +10,22 @@ The function returns the log-likelihood value of the log Normal linear regressio
 }
 \usage{
 \method{logLik}{lognlm}(object, full=FALSE, ...)
+\method{extractAIC}{lognlm}(fit, scale=0, k=2, ...)
+
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{object}{
+  \item{object, fit}{
 A \code{lognlm} fit returned by \code{lognlm()}
 }
-
   \item{full}{
-If \code{FALSE}, only the \emph{kernel} of the log likelihood is returned, otherwise the complete log likelihood (with terms depending on data only)
+If \code{FALSE}, only the \emph{kernel} of the log likelihood is returned, otherwise the complete log likelihood (including terms depending on data only)
+}
+\item{scale}{
+Optional numeric specifying the scale parameter of the model. \code{scale = 0} indicates that it is to be estimated by maximum likelihood.
+}
+\item{k}{
+Optional numeric specifying the penalty of the edf in the AIC formula.
 }
   \item{\dots}{
 optional  arguments (nothing in this method).

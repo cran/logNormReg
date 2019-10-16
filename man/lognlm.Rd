@@ -9,7 +9,7 @@ The function fits simple multiple linear regression models with log Normals erro
 }
 \usage{
 lognlm(formula, data, subset, weights, na.action, y = TRUE, start, model = TRUE, 
-     lik = TRUE, opt = c("nlminb", "optim"), ...)
+     lik = TRUE, opt = c("nlminb", "optim"), contrasts=NULL, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -43,6 +43,9 @@ If \code{TRUE} the log Normal log likelihood is optimized, otherwise the sum of 
 }
   \item{opt}{
 the optimization function to be used. \code{nlminb} has shown to be more efficient, probably because it uses (unlike \code{optim}) also the hessian matrix (supplied in the code).
+}
+  \item{contrasts}{
+an optional list. See the contrasts.arg of model.matrix.default.
 }
   \item{\dots}{
 optional arguments passed on to the optimizing functions (\code{nlminb} or \code{optim}), (and therefore should be \emph{consistent} with that).
@@ -120,4 +123,4 @@ o1<-lognlm(y1~x, lik=FALSE) #set 'lik=FALSE', see Details
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{ regression }% use one of  RShowDoc("KEYWORDS")
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+%\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line

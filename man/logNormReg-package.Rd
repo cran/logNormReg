@@ -19,7 +19,7 @@
 Package: \tab logNormReg\cr
 Type: \tab Package\cr
 Version: \tab 0.2-0\cr
-Date: \tab 2018-09-25\cr
+Date: \tab 2019-10-15\cr
 License: \tab GPL\cr
 }
 
@@ -38,7 +38,7 @@ Muggeo, V.M.R. (2018) A note on regression with log Normal errors: linear and pi
 \keyword{ package }
 \seealso{
 See \code{\link{lognlm}} for the main function with a toy example. \cr  
-See also package \code{\link[gamlss]{gamlss}} for more general regression models including log Normal errors.
+See also package \code{gamlss} for more general regression models including log Normal errors.
 }
 \section{Acknowledgement}{This package was inspired by a fruitful discussion with 
 Andrew Beet (Marine Policy Center, Woods Hole Oceanographic Institution, U.S.).}

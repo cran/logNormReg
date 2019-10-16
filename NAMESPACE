@@ -4,9 +4,10 @@ importFrom("stats", ".getXlevels", "contrasts", "is.empty.model",
 importFrom("stats", "coef", "dlnorm", "fitted", "mad", "median",
              "nlminb", "optim", "pt", "vcov")
 
-export(logLik.lognlm, lognlm.fit, lognlm, print.lognlm, print.summary.lognlm, summary.lognlm, 
+export(extractAIC.lognlm, logLik.lognlm, lognlm.fit, lognlm, print.lognlm, print.summary.lognlm, summary.lognlm, 
 	vcov.lognlm, confint.lognlm)
 
+S3method(extractAIC,lognlm)
 S3method(logLik,lognlm)
 S3method(print,lognlm)
 S3method(summary,lognlm)

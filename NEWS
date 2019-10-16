@@ -1,9 +1,14 @@
 *****************************************
-*				  	*
-*	Changes in logNormReg	*
-*				  	*
+*				  	                            *
+*	Changes in logNormReg	                *
+*				  	                            *
 *****************************************
 
+
+=============
+version 0.3-0  
+=============
+* Function extractAIC.lognlm() introduced: drop1(), step() and friends are allowed (thanks to Ralph Pirow for suggestion) * bug fixed: logLik.lognlm() did not return the attributes "edf" and "nobs" 
 
 
 =============

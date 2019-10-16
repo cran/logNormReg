@@ -1,8 +1,8 @@
 Package: logNormReg
 Type: Package
 Title: log Normal Linear Regression
-Version: 0.2-0
-Date: 2018-09-25
+Version: 0.3-0
+Date: 2019-10-15
 Authors@R: c(person(given = c("Vito","M.","R."), family = "Muggeo", role =
         c("aut", "cre"), 
 		email = "vito.muggeo@unipa.it", comment=c(ORCID="0000-0002-3386-4054")))
@@ -12,7 +12,7 @@ Description: Functions to fits simple linear regression models with log normal e
 		Muggeo (2018) <doi:10.13140/RG.2.2.18118.16965>.
 License: GPL
 NeedsCompilation: no
-Packaged: 2018-10-08 14:45:04 UTC; enea
+Packaged: 2019-10-15 13:30:29 UTC; vito
 Author: Vito M. R. Muggeo [aut, cre] (<https://orcid.org/0000-0002-3386-4054>)
 Repository: CRAN
-Date/Publication: 2018-10-16 15:10:06 UTC
+Date/Publication: 2019-10-16 18:00:02 UTC
