@@ -33,10 +33,16 @@ function(x, digits = max(3L, getOption("digits") - 3L),  signif.stars = getOptio
 #            na.print = "NA", ...)
 #    }
 #
-  Fnobj<- if(x$lik) "\nLog Likelihood: " else "\nSum of log Residuals:"
-	V<-x$cov
+  #Fnobj<- if(x$lik) "\nLog Likelihood: " else "\nSum of log Residuals:"
+  if(x$lik) {
+      Fnobj<- "\nLog Likelihood: "
+  } else {
+      Fnobj<-if(length(x$weights)<=0) "\nSum of squared Residuals (logs):" else "\nSum of (weighted) squared residuals (logs):" 
+  }
+  V<-x$cov
 	se.sd<-if(nrow(V)==(nrow(coefs)+1)) sqrt(V[nrow(coefs)+1,nrow(coefs)+1]) else NA
-    cat("\nStandard deviation estimate: ", format(x$sigma, digits=max(5L, digits + 1L)), "(St.Err =", paste(format(se.sd, digits=max(4, digits)),")", sep=""), Fnobj, format(x$loglik, digits = max(5L, digits + 1L))) # "on "
+    cat("\nStandard deviation estimate: ", format(x$sigma, digits=max(5L, digits + 1L)), 
+        "(St.Err =", paste(format(se.sd, digits=max(4, digits)),")", sep=""), Fnobj, format(x$loglik, digits = max(5L, digits + 1L))) # "on "
     cat("\n")
     invisible(x)
 }

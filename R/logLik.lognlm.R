@@ -3,9 +3,11 @@ logLik.lognlm <-
     if(!full) {
       ll<- object$loglik 
     } else { 
-      if(!object$lik) stop("full=TRUE is meaningless with the fit 'object' ")
+      if(!object$lik) stop("full=TRUE is meaningless with the non Lik-based fit 'object' ")
       mu<- fitted(object)
-      s2<- object$s2
+      n<-length(mu)
+      p<-length(object$coefficients)
+      s2<- object$s2*(n-p)/n 
       ll<- sum(dlnorm(object$y, log(mu)-s2/2, sqrt(s2), log=TRUE))
     }
     attr(ll, "df")<-length(object$coefficients) +1

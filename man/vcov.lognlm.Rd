@@ -5,21 +5,20 @@
 Covariance matrix for lognlm fits
 }
 \description{
-Computes covariance matrix of parameter estimates from a \code{lognlm} fit.
+Computes covariance matrix of parameter estimates from a \code{lognlm} fit via the sandwich formula.
 }
 \usage{
-\method{vcov}{lognlm}(object, sandw = FALSE, emp = TRUE, se = FALSE, ...)
+\method{vcov}{lognlm}(object, emp = FALSE, exH = TRUE, se = FALSE, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{object}{
 a fitted model object of class \code{"lognlm"} returned by \code{lognlm()}
 }
-  \item{sandw}{
-logical, if \code{TRUE} the returned covariance matrix comes from the sandwich formula, otherwise it is just the (minus) hessian. Meaningless if \code{object} has been obtained with \code{lik=FALSE}.
-}
   \item{emp}{
-logical; if \code{TRUE} (and \code{sandw=TRUE} too), the `meat' (i.e the information matrix) is computed empirically by the outer product of the individual score contributions. 
+logical; if \code{TRUE}, the `meat' (i.e the information matrix) is computed empirically by the outer product of the individual score contributions. 
+}
+  \item{exH}{logical; if \code{TRUE} the \emph{expected} (rather than the observed) hessian is used in the sandwich formula.
 }
   \item{se}{
 logical; if \code{TRUE} the square root of the elements of the main diagonal are returned (rather than the whole matrix).
@@ -29,7 +28,7 @@ additional arguments.
 }
 }
 \details{
-If \code{object} has been obtained via \code{lognlm(.., lik=TRUE)} the returned covariance matrix (or standard errors only) refers to regression coefficients \emph{and} the response standard deviation. Otherwise (if \code{lik=FALSE} has been set), it includes entries relevant to regression coefficients. 
+If \code{object} has been obtained via \code{lognlm(.., lik=TRUE)} the returned covariance matrix (or standard errors only) refers to regression coefficients \emph{and} the log response standard deviation. Otherwise (if \code{lik=FALSE} has been set), it includes entries relevant to regression coefficients only. The var-covariance matrix comes from the sandwich formula using \emph{expected} (if \code{exH=TRUE}) or the observed (if \code{exH=FALSE}) hessian at solution. Some simulations under correct model specification show that \code{emp=TRUE} and \code{exH=FALSE} lead to somewhat more unstable standard errors.
 }
 \value{
 The variance-covariance matrix of the parameter estimates, if \code{se=FALSE}; otherwise the square root of the main diagonal entries.
@@ -40,9 +39,9 @@ The variance-covariance matrix of the parameter estimates, if \code{se=FALSE}; o
 \author{
 Vito Muggeo
 }
-%\note{
-%%  ~~further notes~~
-%}
+\note{
+Currently for likelihood-based fits, \code{exH=FALSE} and \code{emp=TRUE} are always set.
+}
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
@@ -53,22 +52,17 @@ Vito Muggeo
 \donttest{
 n=50
 s=.3
-set.seed(1515)      #just to get reproducible results..
 
 #covariates
 x<-seq(.1,10,l=n) 
 z<-rnorm(n)
-
 #response
 mu<- 10+.5*x- z  #linear regression function
 y<-rlnorm(n, log(mu)-s^2/2, s) #data..
 
-o<- lognlm(y~x+z) #the model
+o<- lognlm(y~x+z, lik=TRUE) #the model
 vcov(o) #the full covariance matrix 
-vcov(o, se=TRUE, sandw=TRUE) #st.errs only, based on the sandwich formula 
-
-o<- lognlm(y~x+z, lik=FALSE) #min. distance estimation
-vcov(o, se=TRUE) #'sandw=TRUE' is not allowed if the fit has been obtained with 'lik=FALSE'
+vcov(o, se=TRUE) #st.errs only 
 
  }
 }

@@ -9,7 +9,7 @@ The function fits simple multiple linear regression models with log Normals erro
 }
 \usage{
 lognlm(formula, data, subset, weights, na.action, y = TRUE, start, model = TRUE, 
-     lik = TRUE, opt = c("nlminb", "optim"), contrasts=NULL, ...)
+     lik = FALSE, opt = c("nlminb", "optim"), contrasts=NULL, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -23,10 +23,10 @@ an optional data frame, list or environment containing some or all the variables
 an optional vector specifying a subset of observations to be used in the fitting process.
 }
   \item{weights}{
-an optional vector of weights to be used in the fitting process. Currently unimplemented.
+an optional vector of (positive) weights to be used in the fitting process. Currently implemented only if \code{lik=FALSE}.
 }
   \item{na.action}{
-an optional vector of weights to be used in the fitting process. 
+a function  indicating what should happen when the data contain NAs. The default is set by the \code{na.action} setting of \code{options}.
 }
   \item{y}{
 logical. If \code{TRUE} the response vector is returned as \code{y} in the fit object.
@@ -42,7 +42,7 @@ logical. If \code{TRUE} the model frame is returned as \code{model} in the fit o
 If \code{TRUE} the log Normal log likelihood is optimized, otherwise the sum of squared residuals based on the logs (see Details).
 }
   \item{opt}{
-the optimization function to be used. \code{nlminb} has shown to be more efficient, probably because it uses (unlike \code{optim}) also the hessian matrix (supplied in the code).
+the optimization function to be used. \code{nlminb} appears to be more efficient, probably because it uses (unlike \code{optim}) also the hessian matrix (supplied in the code). However results are often indistinguishable.
 }
   \item{contrasts}{
 an optional list. See the contrasts.arg of model.matrix.default.
@@ -64,9 +64,10 @@ A list with components
   \item{loglik}{The objective function value, namely the log Normal log likelihood or the sum of the squared `log residuals' (depending on \code{lik} option).}
   \item{s2}{the error variance estimate.}
   \item{fitted.values}{the fitted values.}
-  \item{residuals}{the raw residuals, i.e. 'observed - fitted'.}
+  \item{residuals}{the raw residuals on the original scale, i.e. 'observed - fitted'.}
   \item{grad}{the gradient at solution.}
   \item{hessian}{the hessian matrix at solution.}
+  \item{Ehessian}{the expected hessian matrix at solution (only if \code{lik=FALSE}).}
   \item{convergence}{the convergence code coming from the fitter function. \code{0} means succefull convergence. }
   \item{call}{the matched call.}
   \item{y}{the response vector (provided that \code{y=TRUE} has been set).}
@@ -94,16 +95,16 @@ See also \code{\link{print.lognlm}} and \code{\link{summary.lognlm}} to display 
 }
 \examples{
 
-n=200
+n=300
 s=.4
-set.seed(1234)      #just to get reproducible results..
+set.seed(123)      #just to get reproducible results..
 
 x<-seq(.1,10,l=n) #covariate
 mu<- 10+2*x  #linear regression function
 y<-rlnorm(n, log(mu)-s^2/2, s) #data..
 
 o0<-lm(log(y)~x) #the usual but WRONG model
-o<- lognlm(y~x) #fit the 'right' model
+o<- lognlm(y~x, lik=TRUE) #fit the 'right' model by ML
 
 plot(x,y)
 lines(x, mu, lwd=2)

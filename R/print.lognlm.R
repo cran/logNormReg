@@ -11,8 +11,13 @@ function (x, digits = max(3L, getOption("digits") - 3L), ...) {
 
 #        cat("\ngradient at solution:\n")
 #        print.default(format(drop(x$grad), digits = digits+3), print.gap = 5L, quote = FALSE)
-        Fnobj<- if(x$lik) "\nLog Lik: " else "\nSum log Res:"
-        cat("\nOptimizer:", paste(x$opt,";",sep=""), " Convergence code: " ,x$convergence, Fnobj , paste(format(x$loglik,digits=digits),";",sep=""), " Max grad (abs value):", max(abs(x$grad)),"\n")
+        if(x$lik) {
+            Fnobj<- "\nLog Likelihood: "
+            } else {
+                Fnobj<-if(length(x$weights)<=0) "\nSum of squared residuals (logs):" else "\nSum of (weighted) squared residuals (logs):" 
+            }
+        cat("\nOptimizer:", paste(x$opt,",",sep=""), " Converg code:" ,paste(x$convergence,",",sep=""), " Max abs grad:", signif(max(abs(x$grad)),2),
+            Fnobj , paste(format(x$loglik,digits=digits+2)," ",sep=""), "\n")
         
     }
     else cat("No coefficients\n")

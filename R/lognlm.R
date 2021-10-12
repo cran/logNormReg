@@ -1,6 +1,6 @@
 lognlm <-
 function(formula, data, subset, weights, na.action, y = TRUE, 
-          start, model=TRUE, lik=TRUE, opt=c("nlminb","optim"), contrasts=NULL, ...) {#method=c("BFGS", "Nelder-Mead")
+          start, model=TRUE, lik=FALSE, opt=c("nlminb","optim"), contrasts=NULL, ...) {#method=c("BFGS", "Nelder-Mead")
 #...: additional arguments to be passed to optim or nlmnib depending on 'opt', most often a control argument.
     opt<-match.arg(opt)
     call <- match.call()
@@ -28,6 +28,7 @@ function(formula, data, subset, weights, na.action, y = TRUE,
                         } 
     attrContr <- attr(X, "contrasts")
     weights <- as.vector(model.weights(mf))
+    if (!is.null(weights) && lik) stop("weights are allowed only if 'lik=FALSE' ")
     offset <- as.vector(model.offset(mf))
     if (!is.null(offset)) {
         if (length(offset) != NROW(Y)) 
@@ -36,10 +37,8 @@ function(formula, data, subset, weights, na.action, y = TRUE,
     }
 
     n <- nrow(X)
-    if (!is.null(weights) && !is.numeric(weights)) 
-        stop("'weights' must be a numeric vector")
-    if (!is.null(weights) && any(weights < 0)) 
-        stop("negative weights not allowed")
+    if (!is.null(weights) && !is.numeric(weights)) stop("'weights' must be a numeric vector")
+    if (!is.null(weights) && any(weights < 0)) stop("negative weights not allowed")
     if(missing(start)) {
                 #b<-drop(solve(crossprod(X),crossprod(X,log(Y+.001))))
                 b<-drop(solve(crossprod(X),crossprod(X, Y)))
@@ -53,7 +52,7 @@ function(formula, data, subset, weights, na.action, y = TRUE,
                 s<-start[p+1]
             }
     par0 <- if(lik) c(b,s) else b
-    obj<-lognlm.fit(X=X,y=Y, par=par0, lik=lik, opt=opt, offset=offset, ...)
+    obj<-lognlm.fit(X=X, y=Y, par=par0, lik=lik, opt=opt, offset=offset, weights=weights, ...)
     names(obj$coefficients)<-colnames(X)
     names(obj$s2)<-""
     obj$call<-call
@@ -61,6 +60,7 @@ function(formula, data, subset, weights, na.action, y = TRUE,
     class(obj)<-"lognlm"
     obj$na.action <- attr(mf, "na.action")
     obj$offset <- offset
+    obj$weights <- weights
     obj$contrasts <- attr(X, "contrasts")
     obj$xlevels <- .getXlevels(mt, mf)
     obj$terms <- mt

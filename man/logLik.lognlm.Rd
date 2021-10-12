@@ -22,17 +22,17 @@ A \code{lognlm} fit returned by \code{lognlm()}
 If \code{FALSE}, only the \emph{kernel} of the log likelihood is returned, otherwise the complete log likelihood (including terms depending on data only)
 }
 \item{scale}{
-Optional numeric specifying the scale parameter of the model. \code{scale = 0} indicates that it is to be estimated by maximum likelihood.
+Optional numeric specifying the scale parameter of the model. Currenty not used.
 }
 \item{k}{
-Optional numeric specifying the penalty of the edf in the AIC formula.
+Optional numeric specifying the penalty of the edf in the AIC formula. If \code{k<=0}, the BIC is returned.
 }
   \item{\dots}{
 optional  arguments (nothing in this method).
 }
 }
 \details{
-If \code{object} has been obtained via \code{lognlm(.., lik=TRUE)}, \code{logLik.lognlm} returns the log likelihood (kernel or complete, depending on argument \code{full}), otherwise the sum of log residuals, \eqn{\sum((\log(y_i)-\log(\hat\mu_i))^2)}{sum((log(y)-log(mu))^2)} .
+If \code{object} has been obtained via \code{lognlm(.., lik=TRUE)}, \code{logLik.lognlm} returns the log likelihood (kernel or complete, depending on argument \code{full}), otherwise the sum of log residuals, \eqn{\sum(\log(y_i)-\log(\hat\mu_i))^2)}{sum(log(y)-log(mu))^2}.
 }
 \value{
 The log likelihood (or the sum of log residuals squared) of the model fit \code{object}
@@ -66,7 +66,7 @@ set.seed(1234)      #just to get reproducible results..
 mu<- 10+.5*x  #linear regression function
 y<-rlnorm(n, log(mu)-s^2/2, s) #data..
 
-o<- lognlm(y~x) #the model
+o<- lognlm(y~x, lik=TRUE) #the model
 
 logLik(o) #the kernel log likelihood value
 logLik(o, full=TRUE)

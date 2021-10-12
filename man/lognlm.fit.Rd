@@ -9,7 +9,8 @@ The fitter function for log Normal Linear Models
 \code{optim}. This function is not meant to be called by the user directly.
 }
 \usage{
-lognlm.fit(X, y, par, lik = TRUE, opt = c("nlminb", "optim"), offset=NULL, ...)
+lognlm.fit(X, y, par, lik = TRUE, opt = c("nlminb", "optim"), 
+    offset=NULL, weights=NULL,...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -31,7 +32,9 @@ the optimizing algorithm. Default to \code{nlminb}.
   \item{offset}{
 a possible offset term.
 }
-
+  \item{weights}{
+apossible weights to be used if \code{lik=FALSE}.
+}
   \item{\dots}{
 other arguments to be passed to the optimizer specified in \code{opt}.
 }
