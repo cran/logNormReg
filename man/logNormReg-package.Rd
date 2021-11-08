@@ -18,8 +18,8 @@
 \tabular{ll}{
 Package: \tab logNormReg\cr
 Type: \tab Package\cr
-Version: \tab 0.4-0\cr
-Date: \tab 2021-10-12\cr
+Version: \tab 0.5-0\cr
+Date: \tab 2021-11-08\cr
 License: \tab GPL\cr
 }
 

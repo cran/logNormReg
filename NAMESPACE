@@ -1,6 +1,6 @@
 importFrom("stats", ".getXlevels", "contrasts", "is.empty.model",
       "model.frame", "model.matrix", "model.response", "model.weights", "model.offset",
-	     "terms", "printCoefmat", "qnorm", "splinefun")
+	     "terms", "printCoefmat", "qnorm", "splinefun","weighted.mean","naprint")
 importFrom("stats", "coef", "dlnorm", "fitted", "mad", "median",
              "nlminb", "optim", "pt", "vcov")
 

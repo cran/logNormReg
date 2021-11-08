@@ -66,6 +66,7 @@ function(formula, data, subset, weights, na.action, y = TRUE,
     obj$terms <- mt
     obj$opt<-opt
     obj$lik<-lik
+    obj$df.residual<- n-p-1*(lik)
     if (model) obj$model <- mf
 #    fit$formula <- formula
     obj

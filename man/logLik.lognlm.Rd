@@ -32,7 +32,7 @@ optional  arguments (nothing in this method).
 }
 }
 \details{
-If \code{object} has been obtained via \code{lognlm(.., lik=TRUE)}, \code{logLik.lognlm} returns the log likelihood (kernel or complete, depending on argument \code{full}), otherwise the sum of log residuals, \eqn{\sum(\log(y_i)-\log(\hat\mu_i))^2)}{sum(log(y)-log(mu))^2}.
+If \code{object} has been obtained via \code{lognlm(.., lik=TRUE)}, \code{logLik.lognlm} returns the log likelihood (kernel or complete, depending on argument \code{full}), otherwise the sum of log residuals, \eqn{\sum(\log(y_i)-\log(\hat\mu_i))^2)}{sum(log(y)-log(mu))^2}. The value returned by \code{AIC} is based on the \emph{kernel} log likelihood or the the sum of log residuals, while \code{extractAIC} can return the AIC (or BIC) using the full log likelihood (via \code{extractAIC(.., full=TRUE)})  
 }
 \value{
 The log likelihood (or the sum of log residuals squared) of the model fit \code{object}

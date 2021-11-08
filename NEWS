@@ -1,15 +1,21 @@
-*****************************************
-*				  	                            *
-*	Changes in logNormReg	                *
-*				  	                            *
-*****************************************
-
+****************************
+*                          *
+*  Changes in logNormReg   *
+*                          *
+****************************
 
 
 =============
-version 0.4-0  
+version 0.5-0  (2021-11-08)
 =============
-* lognlm(.., lik=FALSE) accepts argument 'weights' (thanks to Vito Ilacqua (Env Prot Ag) for his input).   'lik=FALSE' is the default now. 
+* summary and print.summary return the (pseudo) R2 based on the log values
+* two datasets (palermo and paris) included 
+
+
+=============
+version 0.4-0  (2021-10-12)
+=============
+* lognlm(.., lik=FALSE) accepts argument 'weights' (thanks to Vito Ilacqua (Env Prot Ag) for his input). 'lik=FALSE' is the default now. 
 * changes in vcov.lognlm: argument 'sandw' removed (it is always TRUE) and new argument 'exH' added.
 * if lik=FALSE the dispersion parameter is estimated taking n-p rather then n in the denominator.
 * type='gradient' in confint.lognlm() is allowed even for non-likelihood fits obtained via lik=FALSE.
@@ -17,21 +23,21 @@ version 0.4-0
 
 
 =============
-version 0.3-0  
+version 0.3-0  (2019-10-15)
 =============
 * Function extractAIC.lognlm() introduced: drop1(), step() and friends are allowed (thanks to Ralph Pirow (German Federal Inst. Risk Assessment) for suggestion) 
 * bug fixed: logLik.lognlm() did not return the attributes "edf" and "nobs" 
 
 
 =============
-version 0.2-0  
+version 0.2-0  (2018-10-08) 
 =============
-* Method confint.lognlm introduced to compute confidence intervals via the Wald the Likelihood Ratio or the Gradient statistics.
+* Method confint.lognlm introduced to compute confidence intervals via the Wald the Likelihood Ratio or the Gradient statistics
 * bug fixed: the offset term was not handled correctly in lognlm()
 
 
 =============
-version 0.1-0 (not on CRAN)  
+version 0.1-0 (2018-07-02, not on CRAN)  
 =============
 * First public release on ResearchGate with functions:
 lognlm, lognlm.fit, logLik.lognlm, print.lognlm, print.summary.lognlm, summary.lognlm, vcov.lognlm

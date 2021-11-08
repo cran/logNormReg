@@ -20,7 +20,26 @@ function(object, ...){
 #              type = "deviance"), coefficients = coef.table, aliased = aliased, 
 #              dispersion = dispersion, df = c(object$rank, df.r, df.f), 
 #              cov.unscaled = covmat.unscaled, cov.scaled = covmat))
+		      
+		      #R2
+		      mu<-object$fitted
+		      y<-object$y
+		      if(is.null(object$weights)) {
+		            r2<-1- sum((log(y)-log(mu))^2)/sum((log(y)- mean(log(y)) )^2)
+		      } else {
+		            w<- object$weights 
+		            r2<-1- sum(w*(log(y)-log(mu))^2)/sum(w*(log(y)- weighted.mean(log(y),w))^2)
+		      }
+		      ans$r.squared <- r2
+		      if("(Intercept)" %in% names(coef.p)) {
+		        df.num <- n-1
+		      } else {
+		        df.num <- n
+		      }
+		      ans$adj.r.squared <- 1-(1-r2)*df.num/(n-p) #controlla intercetta
 
           class(ans) <- "summary.lognlm"
           return(ans)
           }
+
+

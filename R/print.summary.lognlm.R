@@ -33,16 +33,23 @@ function(x, digits = max(3L, getOption("digits") - 3L),  signif.stars = getOptio
 #            na.print = "NA", ...)
 #    }
 #
-  #Fnobj<- if(x$lik) "\nLog Likelihood: " else "\nSum of log Residuals:"
   if(x$lik) {
-      Fnobj<- "\nLog Likelihood: "
+      Fnobj<- "Log Likelihood:"
   } else {
-      Fnobj<-if(length(x$weights)<=0) "\nSum of squared Residuals (logs):" else "\nSum of (weighted) squared residuals (logs):" 
+      Fnobj<-if(length(x$weights)<=0) "Sum of squared Residuals (logs):" else "Sum of (weighted) squared residuals (logs):" 
   }
+#  Fnobj<- paste(Fnobj, " (on",,"")  
   V<-x$cov
 	se.sd<-if(nrow(V)==(nrow(coefs)+1)) sqrt(V[nrow(coefs)+1,nrow(coefs)+1]) else NA
-    cat("\nStandard deviation estimate: ", format(x$sigma, digits=max(5L, digits + 1L)), 
-        "(St.Err =", paste(format(se.sd, digits=max(4, digits)),")", sep=""), Fnobj, format(x$loglik, digits = max(5L, digits + 1L))) # "on "
+    cat("\nStandard deviation estimate: ", format(x$sigma, digits=max(5L, digits)), 
+        "(St.Err =", paste(format(se.sd, digits=max(4, digits)),")", sep="")) 
+    cat("\n")
+    if (nzchar(mess <- naprint(x$na.action))) cat("  (", mess, ")\n", sep = "")
+    cat(Fnobj, format(x$loglik, digits = max(5L, digits + 1L)), " (on", x$df.residual ,"degrees of freedom)",
+        "\npseudo-R2:", formatC(x$r.squared, digits = digits), " Adj pseudo-R2:", formatC(x$adj.r.squared, digits = digits)
+        )
     cat("\n")
     invisible(x)
 }
+
+
